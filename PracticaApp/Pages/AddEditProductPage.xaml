@@ -1,0 +1,161 @@
+﻿<Page x:Class="PracticaApp.Pages.AddEditProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PracticaApp.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddEditProductPage">
+    <Page.Resources>
+        <Style x:Key="itemstyle" TargetType="{x:Type ListViewItem}">
+            <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick" />
+            <Setter Property="Margin" Value="10,0,10,0"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+        <DataTemplate x:Key="ImageItemTemplate">
+            <Border Grid.Row="0" BorderThickness="1" Width="200"  BorderBrush="Black">
+                <StackPanel>
+                    <Image Source="{Binding PhotoPath}" Width="100" Height="100" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="GridViewItemTemplate">
+            <Border Grid.Row="0" BorderThickness="1" Width="200"  BorderBrush="Black">
+                <!--<Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsActive}" Value="false">
+                                <Setter Property="Background" Value="#e1e4ff"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>-->
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0" Source="{Binding MainImagePath}" Width="100" Height="100">
+                            <!--<Image.Style>
+                                    <Style TargetType="Image">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ProductPhoto}" Value="">
+                                                <Setter Property="Height" Value="0"/>
+                                                <Setter Property="Width" Value="0"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>-->
+                        </Image>
+                        <StackPanel Grid.Row="1" Orientation="Vertical">
+                            <TextBlock Text="{Binding Title}" TextAlignment="Center" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Text="{Binding Cost}" TextAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" Height="420">
+            <StackPanel>
+                <Label x:Name="idlb" Visibility="Visible" Content="ID" FontSize="14" Margin="10"/>
+                <TextBox
+                    VerticalAlignment="Top"
+                    TextWrapping="Wrap"
+                    x:Name="idtb"
+                    Height="30"
+                    Margin="10,0"
+                    Text="{Binding ID}"
+                    IsReadOnly="True"
+                    Visibility="Visible"
+                    />
+                <Label Content="Название: " FontSize="14" Margin="10"/>
+                <TextBox x:Name="ProductNametb"
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    VerticalAlignment="Top"
+                    TextWrapping="Wrap"
+                    MaxLength="100"
+                    Margin="10,0"
+                    Text="{Binding Title}"
+                    SpellCheck.IsEnabled="True"
+                    Language="ru-ru"
+                    VerticalContentAlignment="Center"
+                     />
+                <Label Content="Описание: " FontSize="14" Margin="10"/>
+                <TextBox
+                    x:Name="DescriptionTB"
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    VerticalAlignment="Top"
+                    TextWrapping="Wrap"
+                    MaxLength="200"
+                    Margin="10,0"
+                    Text="{Binding Description}"
+                />
+                <Label Margin="10" FontSize="14" Content="Производитель: "/>
+                <ComboBox
+                x:Name="manufacturersCB"
+                DisplayMemberPath="Name"
+                SelectedItem="{Binding Manufacturer}"
+                Height="30"
+                Margin="10,0"
+                />
+                <Label Content="Товар активен?" Margin="10" FontSize="14" />
+                <CheckBox x:Name="IsActiveCB" Margin="10,0" IsChecked="{Binding IsActive}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="9*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
+                        <Image  x:Name="productImageButton"  Source="{Binding MainImagePath}" Height="170" Width="170" HorizontalAlignment="Left" Margin="10,0"/>
+                        <Button x:Name="Add_Image" Height="30" Margin="10"  HorizontalAlignment="Left" Content="Изменить фото" Click="Add_Image_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Column="3">
+                        <Label Content="Связанные продукты: " FontSize="14" x:Name="relatedProductsLabel"/>
+                        <ListView  x:Name="RelatedProducts" ScrollViewer.VerticalScrollBarVisibility="Hidden" ItemTemplate="{StaticResource GridViewItemTemplate}" ItemContainerStyle="{StaticResource itemstyle}" ScrollViewer.CanContentScroll="False">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                    </StackPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="AddRelatedbtn" Height="30" Content="Добавить связанный продукт" Margin="10" Click="AddRelatedbtn_Click"/>
+                            <Button x:Name="DelRelatedbtn" Width="100" Height="30" Content="Удалить" Margin="10" Click="DelRelatedbtn_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+                <StackPanel x:Name="RelatedImagesStackPanel">
+                    <Label Content="Дополнительные изображения: " FontSize="14" x:Name="relatedImagesLabel"/>
+                    <ListView  x:Name="RelatedImages" ScrollViewer.VerticalScrollBarVisibility="Hidden" ItemTemplate="{StaticResource ImageItemTemplate}" ItemContainerStyle="{StaticResource itemstyle}" ScrollViewer.CanContentScroll="False">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                </StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="AddRelatedImagebtn" Height="30" Content="Добавить картинку" Margin="10" Click="AddRelatedImagebtn_Click"/>
+                        <Button x:Name="DelRelatedImagebtn" Width="100" Height="30" Content="Удалить" Margin="10" Click="DelRelatedImagebtn_Click"/>
+                    </StackPanel>
+                </StackPanel>
+                <DockPanel>
+                    <Button x:Name="Savebtn"  HorizontalAlignment="Left" Content="Сохранить" Margin="10" Click="Savebtn_Click"/>
+                    <Button x:Name="Backbtn"  HorizontalAlignment="Right" Content="Назад" Margin="10,0"  Click="Backbtn_Click"/>
+                </DockPanel>
+
+             
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

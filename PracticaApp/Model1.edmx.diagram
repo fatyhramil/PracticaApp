@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cc64071c6740455bacf2daa4b04b8400" Name="Diagram1">
+        <EntityTypeShape EntityType="PracticaDBModel.Client" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.ClientService" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.DocumentByService" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.Gender" Width="1.5" PointX="1.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.Manufacturer" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.Product" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.ProductPhoto" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.ProductSale" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.Service" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.ServicePhoto" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PracticaDBModel.Tag" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <AssociationConnector Association="PracticaDBModel.FK_Client_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.FK_ClientService_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.FK_ClientService_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.FK_DocumentByService_ClientService" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.FK_ProductSale_ClientService" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.FK_Product_Manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.FK_ProductPhoto_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.FK_ProductSale_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.FK_ServicePhoto_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.AttachedProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="PracticaDBModel.TagOfClient" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

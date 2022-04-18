@@ -1,0 +1,179 @@
+﻿<Page x:Class="PracticaApp.Pages.ProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PracticaApp.Pages" xmlns:local1="clr-namespace:PracticaApp.Classes"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="800"
+      Title="ProductPage">
+    <Page.Resources>
+        <local1:ItemsDataTemplateSelector x:Key="dataTemplateSelector"/>
+        <Style x:Key="itemstyle" TargetType="{x:Type ListViewItem}">
+            <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick" />
+            <Setter Property="Margin" Value="10,0,10,0"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+        <DataTemplate x:Key="OtherImage">
+            <StackPanel>
+                <Image Source="{Binding PhotoPath}" Height="100" Width="100" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="FirstImage">
+            <StackPanel>
+                <Image Source="{Binding PhotoPath}" Height="100" Width="100" />
+            </StackPanel>
+        </DataTemplate>
+        <!--<Style x:Key="ImageItemStyle" TargetType="{x:Type ContentControl}">
+            <Setter Property="ContentTemplate" Value="{StaticResource OtherImage}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding PhotoPath.Count}" Value="0">
+                    <Setter Property="ContentTemplate" Value="{StaticResource FirstImage}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding PhotoPath}" Value="">
+                    <Setter Property="ContentTemplate" Value="{StaticResource FirstImage}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>-->
+        <DataTemplate x:Key="ImageItemTemplate">
+            <Grid>
+                <Grid>
+                    <Image  Height="100" Width="100">
+                    </Image>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="GridViewItemTemplate">
+            <Border Grid.Row="0" BorderThickness="1" Width="200"  BorderBrush="Black">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsActive}" Value="false">
+                                <Setter Property="Background" Value="#e1e4ff"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <StackPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--<Image Grid.Row="0"  Source="{Binding MainImagePath}" Height="100" Width="100" />--><!--
+                        <ListView Grid.Row="0" ItemsSource="{Binding ProductPhoto}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="False" ItemTemplate="{StaticResource ImageItemTemplate}">
+                            --><!--<ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="" Value="{StaticResource }" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                            <Setter Property="Source" Value="{Binding Product.MainImagePath}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>--><!--
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                    </StackPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            --><!--<ListView.ItemTemplate>
+                                <DataTemplate>
+                                    --><!--<Image  Height="100" Width="100">
+                                        <Image.Style>
+                                            <Style TargetType="{x:Type Image}">
+                                                <Setter Property="Source" Value="{Binding Product.MainImagePath}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                                        <Setter Property="Source" Value="{Binding Product.MainImagePath}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>-->
+                                    <!--<ContentControl Style="{StaticResource ImageItemStyle}"/>--><!--
+                                </DataTemplate>
+                            </ListView.ItemTemplate>--><!--
+                        </ListView>-->
+                        <Border x:Name="ImageBorderList" Width="100" Height="100" CornerRadius="5" Margin="5" BorderBrush="Black" BorderThickness="1">
+                            <ListView x:Name="ProductPhotoList" ScrollViewer.VerticalScrollBarVisibility="Hidden" ItemsSource="{Binding ProductPhoto}" Width="100" Height="100">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="Margin" Value="0"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplateSelector>
+                                    <local1:ItemsDataTemplateSelector FirstItem="{StaticResource FirstImage}" OtherItem="{StaticResource OtherImage}"/>
+                                </ListView.ItemTemplateSelector>
+                            </ListView>
+                        </Border>
+                        <StackPanel Grid.Row="1" Orientation="Vertical">
+                            <TextBlock Text="{Binding Title}" TextAlignment="Center" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Text="{Binding Cost}" TextAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBox x:Name="SearchName" TextChanged="SearchName_TextChanged" Width="200" Margin="10"/>
+            <ComboBox x:Name="SortAscDescCB" Width="100" Margin="10" SelectionChanged="SortAscDescCB_SelectionChanged">
+                <ComboBoxItem Content="По возрастанию"/>
+                <ComboBoxItem Content="По убыванию"/>
+            </ComboBox>
+            <ComboBox x:Name="ManufacturerCB" SelectionChanged="FilterTypeCB_SelectionChanged" Width="100" Margin="10"/>
+            <TextBlock Text="Продукты" Margin="5,0" Width="100"/>
+            <TextBlock x:Name="CountTb" Margin="5,0"/>
+            <TextBlock Text="/" Margin="5,0"/>
+            <TextBlock x:Name="ActualCountTb" Margin="5,0"/>
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <ListView x:Name="ProductsListView" ItemTemplate="{StaticResource GridViewItemTemplate}" ItemContainerStyle="{StaticResource itemstyle}"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="False" >
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3">
+                        </UniformGrid>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="deleteButton" HorizontalAlignment="Center" Content="Удалить" Grid.Column="1" Click="deleteButton_Click">
+            </Button>
+            <Button x:Name="addButton" HorizontalAlignment="Center" Content="Добавить" Grid.Column="3" Click="addButton_Click">
+            </Button>
+            <Button x:Name="historyButton" HorizontalAlignment="Center" Content="История продаж" Grid.Column="5" Click="historyButton_Click"/>
+        </Grid>
+    </Grid>
+</Page>
